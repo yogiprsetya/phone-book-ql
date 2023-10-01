@@ -5,7 +5,10 @@ import { Sidebar } from 'components/layout/Sidebar';
 import { AppLayout } from 'components/layout/AppLayout';
 import 'reset-css';
 
-const nunito = Nunito_Sans({ subsets: ['latin'] });
+const nunito = Nunito_Sans({
+  subsets: ['latin'],
+  weight: ['400', '600', '800']
+});
 
 export const metadata: Metadata = {
   title: 'Phone Book QL',

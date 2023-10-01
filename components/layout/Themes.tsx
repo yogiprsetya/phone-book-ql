@@ -12,7 +12,11 @@ const theme = {
     primary: '#41b548',
     secondary: '#ffffff',
     hightlight: '#fff40c',
-    border: '#f0f3f7'
+    border: '#f0f3f7',
+    text: {
+      body: '#1e293b',
+      dark: '#0f172a'
+    }
   }
 };
 

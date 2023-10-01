@@ -1,33 +1,36 @@
-/** @jsx jsx */
+'use client';
 
-import { jsx, useTheme } from '@emotion/react';
+import tw, { styled } from 'twin.macro';
 import { HTMLAttributes, ReactNode } from 'react';
 
-type Props = {
+interface IButton extends HTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   variant: 'primary' | 'secondary' | 'danger';
-};
+}
 
-export const Button = (props: Props & HTMLAttributes<HTMLButtonElement>) => {
-  const { children, variant, ...restProps } = props;
-  const { colors } = useTheme();
-
+const ButtonStyled = styled('button')<IButton>((props) => {
   const BG_COLOR = {
-    primary: colors.primary,
-    secondary: colors.secondary,
-    danger: '#ff3266'
+    primary: props.theme.colors.primary,
+    secondary: props.theme.colors.secondary,
+    danger: props.theme.colors.danger
   };
 
+  return [
+    tw`p-2 p-1`,
+    {
+      background: BG_COLOR[props.variant],
+      padding: '4px 12px',
+      borderRadius: 6
+    }
+  ];
+});
+
+export const Button = (props: IButton) => {
+  const { children, variant, ...restProps } = props;
+
   return (
-    <button
-      {...restProps}
-      css={{
-        background: BG_COLOR[variant],
-        padding: '4px 12px',
-        borderRadius: 6
-      }}
-    >
+    <ButtonStyled {...restProps} variant={variant}>
       {children}
-    </button>
+    </ButtonStyled>
   );
 };

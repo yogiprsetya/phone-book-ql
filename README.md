@@ -10,4 +10,5 @@ npm run dev
 
 ## Exploration take away
 
-1. Next currently still working on support for Emotion
+1. NextJS currently still working on support for Emotion
+2. Join CSSinJS manually with tailwind is bad idea, use `twin.macro` instead

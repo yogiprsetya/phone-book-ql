@@ -3,7 +3,7 @@ import { Nunito_Sans } from 'next/font/google';
 import { Themes } from 'components/layout/Themes';
 import { Sidebar } from 'components/layout/Sidebar';
 import { AppLayout } from 'components/layout/AppLayout';
-import 'reset-css';
+import './globals.css';
 
 const nunito = Nunito_Sans({
   subsets: ['latin'],

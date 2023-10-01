@@ -13,6 +13,7 @@ const theme = {
     secondary: '#ffffff',
     hightlight: '#fff40c',
     border: '#f0f3f7',
+    danger: '#ff3266',
     text: {
       body: '#1e293b',
       dark: '#0f172a'

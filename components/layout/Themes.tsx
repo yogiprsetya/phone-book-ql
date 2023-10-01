@@ -1,3 +1,5 @@
+'use client';
+
 import { ReactNode } from 'react';
 import { ThemeProvider } from '@emotion/react';
 
@@ -6,11 +8,14 @@ type Props = {
 };
 
 const theme = {
-  primary: '#41b548',
-  secondary: '#ffffff',
-  hightlight: '#fff40c'
+  colors: {
+    primary: '#41b548',
+    secondary: '#ffffff',
+    hightlight: '#fff40c',
+    border: '#f0f3f7'
+  }
 };
 
-export const Theme = (props: Props) => {
+export const Themes = (props: Props) => {
   return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
 };

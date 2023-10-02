@@ -34,9 +34,10 @@ const GET_CONATCT_LIST = gql`
   }
 `;
 
-export const useGetContactList = () =>
-  useQuery<{ contact: ContactType[] }, ContactParams>(GET_CONATCT_LIST, {
+export const useGetContactList = () => {
+  return useQuery<{ contact: ContactType[] }, ContactParams>(GET_CONATCT_LIST, {
     variables: {
       limit: 10
     }
   });
+};

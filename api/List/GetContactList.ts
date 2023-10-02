@@ -1,5 +1,19 @@
 import { gql, useQuery } from '@apollo/client';
 
+type ContactType = {
+  id: number;
+  first_name: string;
+  last_name: string;
+  created_at: string;
+};
+
+type ContactParams = {
+  limit?: number;
+  offset?: string;
+  last_name?: string;
+  created_at?: string;
+};
+
 const GET_CONATCT_LIST = gql`
   query GetContactList(
     $distinct_on: [contact_select_column!]
@@ -20,4 +34,9 @@ const GET_CONATCT_LIST = gql`
   }
 `;
 
-export const useGetContactList = () => useQuery(GET_CONATCT_LIST);
+export const useGetContactList = () =>
+  useQuery<{ contact: ContactType[] }, ContactParams>(GET_CONATCT_LIST, {
+    variables: {
+      limit: 10
+    }
+  });

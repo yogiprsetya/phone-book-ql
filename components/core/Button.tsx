@@ -8,18 +8,18 @@ interface IButton extends HTMLAttributes<HTMLButtonElement> {
   variant: 'primary' | 'secondary' | 'danger';
 }
 
-const ButtonStyled = styled('button')<IButton>((props) => {
+const ButtonStyled = styled('button')<IButton>(({ theme, variant }) => {
   const BG_COLOR = {
-    primary: props.theme.colors.primary,
-    secondary: props.theme.colors.secondary,
-    danger: props.theme.colors.danger
+    primary: theme.colors.primary,
+    secondary: theme.colors.secondary,
+    danger: theme.colors.danger
   };
 
   return [
-    tw`p-2 p-1`,
+    tw`py-1 px-3 font-semibold`,
     {
-      background: BG_COLOR[props.variant],
-      padding: '4px 12px',
+      background: BG_COLOR[variant],
+      color: variant === 'danger' ? theme.colors.secondary : theme.colors.text.body,
       borderRadius: 6
     }
   ];

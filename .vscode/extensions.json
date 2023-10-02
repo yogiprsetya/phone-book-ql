@@ -1,3 +1,3 @@
 {
-  "recommendations": ["GraphQL.vscode-graphql-syntax", "lightyen.tailwindcss-intellisense-twin"]
+  "recommendations": ["GraphQL.vscode-graphql-syntax", "bradlc.vscode-tailwindcss"]
 }

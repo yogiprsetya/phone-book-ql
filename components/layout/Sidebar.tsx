@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import { Users, UserPlus, Star } from 'react-feather';
-import { styled } from 'twin.macro';
+import tw, { styled } from 'twin.macro';
 
 const navigation = [
   {
@@ -23,28 +23,22 @@ const navigation = [
   }
 ];
 
-const AsideStyled = styled('aside')((props) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 8,
-  padding: 32,
-  background: '#10172a',
-  width: '12%',
-  height: '100vh',
-
-  '& > div': {
-    marginBottom: 32,
+const AsideStyled = styled('aside')([
+  tw`w-full md:w-[240px] md:h-screen md:p-8 px-4 py-5 fixed`,
+  {
     display: 'flex',
-    alignItems: 'flex-end',
+    flexDirection: 'column',
     gap: 8,
-    color: props.theme.colors.secondary,
-
-    '& > img': {
-      width: 24,
-      height: 24
-    }
+    background: '#10172a'
   }
-}));
+]);
+
+const LogoStyled = styled('div')((props) => [
+  tw`md:mb-8 flex items-end gap-2`,
+  {
+    color: props.theme.colors.secondary
+  }
+]);
 
 const LinkStyled = styled(Link)((props) => ({
   color: props.theme.colors.secondary,
@@ -59,16 +53,18 @@ const LinkStyled = styled(Link)((props) => ({
 export const Sidebar = () => {
   return (
     <AsideStyled>
-      <div>
-        <img src="/logo.svg" alt="logo" />
+      <LogoStyled>
+        <img src="/logo.svg" alt="logo" className="w-6 h-6" />
         <p>PhoneBookQL</p>
-      </div>
+      </LogoStyled>
 
-      {navigation.map((nav) => (
-        <LinkStyled key={nav.url} href={nav.url}>
-          {nav.icon} {nav.label}
-        </LinkStyled>
-      ))}
+      {/* <div className="flex flex-col">
+        {navigation.map((nav) => (
+          <LinkStyled key={nav.url} href={nav.url}>
+            {nav.icon} {nav.label}
+          </LinkStyled>
+        ))}
+      </div> */}
     </AsideStyled>
   );
 };

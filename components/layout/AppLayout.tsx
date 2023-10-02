@@ -1,6 +1,6 @@
 'use client';
 
-import { styled } from 'twin.macro';
+import tw, { styled } from 'twin.macro';
 import { ReactNode } from 'react';
 import { ApolloProvider } from '@apollo/client';
 import { createApolloClient } from 'gql/client';
@@ -9,16 +9,14 @@ type Props = {
   children: ReactNode;
 };
 
-const AppLayoutStyled = styled('div')((props) => ({
-  display: 'flex',
-  maxHeight: '100vh',
-  color: props.theme.colors.text.body,
+const AppLayoutStyled = styled('div')((props) => [
+  tw`flex md:max-h-screen max-md:flex-col`,
+  {
+    color: props.theme.colors.text.body,
 
-  '& > main': {
-    margin: 32,
-    flexGrow: 1
+    '& > main': tw`max-md:pt-14 grow md:m-8 m-6 mt-8`
   }
-}));
+]);
 
 export const AppLayout = (props: Props) => {
   const client = createApolloClient();

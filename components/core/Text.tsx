@@ -1,8 +1,5 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-
-import { jsx } from '@emotion/react';
 import { ReactNode } from 'react';
+import tw, { styled } from 'twin.macro';
 
 type Variants = 'headline-1' | 'headline-2' | 'text';
 
@@ -13,32 +10,39 @@ type Props = {
   children: ReactNode;
 };
 
+const TextStyled = styled('p')<{ variant?: Variants }>((props) => {
+  if (props.variant === 'headline-1') {
+    return [
+      tw`md:text-4xl text-3xl`,
+      {
+        fontWeight: 800,
+        letterSpacing: -0.5
+      }
+    ];
+  }
+
+  if (props.variant === 'headline-2') {
+    return [
+      tw`md:text-2xl text-lg`,
+      {
+        fontWeight: 800,
+        letterSpacing: -0.2
+      }
+    ];
+  }
+
+  return {
+    fontSize: 16,
+    lineHeight: '24px'
+  };
+});
+
 export const Text = (props: Props) => {
   const { tag = 'p', children, variant = 'text', className } = props;
-  const Element = tag;
-
-  const sizing: Record<Variants, object> = {
-    'headline-1': {
-      fontSize: 38,
-      lineHeight: '42px',
-      fontWeight: 800,
-      letterSpacing: -0.5
-    },
-    'headline-2': {
-      fontSize: 24,
-      lineHeight: '28px',
-      fontWeight: 800,
-      letterSpacing: -0.2
-    },
-    text: {
-      fontSize: 16,
-      lineHeight: '24px'
-    }
-  };
 
   return (
-    <Element css={{ ...sizing[variant] }} className={className}>
+    <TextStyled as={tag} variant={variant} className={className}>
       {children}
-    </Element>
+    </TextStyled>
   );
 };

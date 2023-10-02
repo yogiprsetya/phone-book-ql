@@ -8,6 +8,8 @@ First, run the development server:
 npm run dev
 ```
 
+Note: run `npx husky install` first time only
+
 ## Exploration take away
 
 1. NextJS currently still working on support for Emotion

@@ -12,9 +12,7 @@ type Props = {
 const AppLayoutStyled = styled('div')((props) => [
   tw`flex md:max-h-screen max-md:flex-col`,
   {
-    color: props.theme.colors.text.body,
-
-    '& > main': tw`max-md:pt-14 grow md:m-8 m-6 mt-8`
+    color: props.theme.colors.text.body
   }
 ]);
 

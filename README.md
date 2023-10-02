@@ -12,3 +12,4 @@ npm run dev
 
 1. NextJS currently still working on support for Emotion
 2. Join CSSinJS manually with tailwind is bad idea, use `twin.macro` instead
+3. We can use `twin.macro` to handle styled component breakpoint asap

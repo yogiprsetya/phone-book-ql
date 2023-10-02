@@ -4,13 +4,14 @@ import { useGetContactList } from 'api/List/GetContactList';
 import { ContactCard } from 'components/common/ContactCard';
 import { Input } from 'components/core/Input';
 import { Text } from 'components/core/Text';
+import { Main } from 'components/layout/Main';
 
 export default function Home() {
   const { data, loading } = useGetContactList();
   console.log(data);
 
   return (
-    <>
+    <Main>
       <Text tag="h1" variant="headline-1" className="mb-8">
         Contact List
       </Text>
@@ -32,6 +33,6 @@ export default function Home() {
           <Input placeholder="Search contact" />
         </div>
       </div>
-    </>
+    </Main>
   );
 }

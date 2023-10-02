@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Themes>
           <AppLayout>
             <Sidebar />
-            <main>{children}</main>
+            {children}
           </AppLayout>
         </Themes>
       </body>

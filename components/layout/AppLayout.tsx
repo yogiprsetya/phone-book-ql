@@ -3,7 +3,7 @@
 import tw, { styled } from 'twin.macro';
 import { ReactNode } from 'react';
 import { ApolloProvider } from '@apollo/client';
-import { createApolloClient } from 'gql/client';
+import { createApolloClient } from 'config/gql-client';
 
 type Props = {
   children: ReactNode;

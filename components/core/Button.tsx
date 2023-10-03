@@ -1,17 +1,17 @@
 'use client';
 
 import tw, { styled } from 'twin.macro';
-import { HTMLAttributes, ReactNode } from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 
-interface IButton extends HTMLAttributes<HTMLButtonElement> {
+interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   variant: 'primary' | 'secondary' | 'danger';
 }
 
-const ButtonStyled = styled('button')<IButton>(({ theme, variant }) => {
+const ButtonStyled = styled('button')<IButton>(({ theme, variant, disabled }) => {
   const BG_COLOR = {
     primary: theme.colors.primary,
-    secondary: theme.colors.secondary,
+    secondary: theme.colors.hightlight,
     danger: theme.colors.danger
   };
 
@@ -20,7 +20,8 @@ const ButtonStyled = styled('button')<IButton>(({ theme, variant }) => {
     {
       background: BG_COLOR[variant],
       color: variant === 'danger' ? theme.colors.secondary : theme.colors.text.body,
-      borderRadius: 6
+      borderRadius: 6,
+      opacity: disabled ? 0.6 : 1
     }
   ];
 });

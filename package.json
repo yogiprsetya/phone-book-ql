@@ -18,7 +18,8 @@
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "react-feather": "^2.0.10"
+    "react-feather": "^2.0.10",
+    "use-debounce": "^9.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.23.0",

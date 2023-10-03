@@ -4,7 +4,7 @@ import tw, { styled } from 'twin.macro';
 type Variants = 'headline-1' | 'headline-2' | 'text';
 
 type Props = {
-  tag?: 'p' | 'h1' | 'h2' | 'h3';
+  tag?: 'p' | 'span' | 'h1' | 'h2' | 'h3';
   variant?: Variants;
   className?: string;
   children: ReactNode;

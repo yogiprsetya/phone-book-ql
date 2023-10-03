@@ -1,4 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
+import { ITEMS_PER_PAGE } from 'config/constant';
+import { useDebounce } from 'use-debounce';
 
 type ContactType = {
   id: number;
@@ -9,9 +11,8 @@ type ContactType = {
 
 type ContactParams = {
   limit?: number;
-  offset?: string;
-  last_name?: string;
-  created_at?: string;
+  offset?: number;
+  search?: string;
 };
 
 const GET_CONATCT_LIST = gql`
@@ -34,10 +35,17 @@ const GET_CONATCT_LIST = gql`
   }
 `;
 
-export const useGetContactList = () => {
-  return useQuery<{ contact: ContactType[] }, ContactParams>(GET_CONATCT_LIST, {
+export const useGetContactList = (params?: ContactParams) => {
+  const { limit = ITEMS_PER_PAGE, offset = 0, search } = params || {};
+  const [value] = useDebounce(search, 1000);
+
+  return useQuery<{ contact: ContactType[] }>(GET_CONATCT_LIST, {
     variables: {
-      limit: 10
+      limit,
+      offset,
+      where: {
+        first_name: { _like: `%${value}%` }
+      }
     }
   });
 };

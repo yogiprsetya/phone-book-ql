@@ -5,6 +5,7 @@ import { ContactCard } from 'components/common/ContactCard';
 import { Pagination } from 'components/common/Pagination';
 import { Input } from 'components/core/Input';
 import { Text } from 'components/core/Text';
+import { DynamicNoSSR } from 'components/layout/DynamicNoSSR';
 import { Main } from 'components/layout/Main';
 import { ITEMS_PER_PAGE } from 'config/constant';
 import { useState } from 'react';
@@ -57,4 +58,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default DynamicNoSSR(Home);

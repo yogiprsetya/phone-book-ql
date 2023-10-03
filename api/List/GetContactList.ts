@@ -13,6 +13,8 @@ type ContactParams = {
   limit?: number;
   offset?: number;
   search?: string;
+  takeouts?: number[];
+  findByIds?: number[];
 };
 
 const GET_CONATCT_LIST = gql`
@@ -36,7 +38,7 @@ const GET_CONATCT_LIST = gql`
 `;
 
 export const useGetContactList = (params?: ContactParams) => {
-  const { limit = ITEMS_PER_PAGE, offset = 0, search } = params || {};
+  const { limit = ITEMS_PER_PAGE, offset = 0, search = '', takeouts, findByIds } = params || {};
   const [value] = useDebounce(search, 1000);
 
   return useQuery<{ contact: ContactType[] }>(GET_CONATCT_LIST, {
@@ -44,7 +46,11 @@ export const useGetContactList = (params?: ContactParams) => {
       limit,
       offset,
       where: {
-        first_name: { _like: `%${value}%` }
+        first_name: { _like: `%${value}%` },
+        id: {
+          _nin: takeouts,
+          _in: findByIds
+        }
       }
     }
   });

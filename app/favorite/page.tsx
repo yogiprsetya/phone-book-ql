@@ -3,7 +3,6 @@
 import { useGetContactList } from 'api/List/GetContactList';
 import { ContactCard } from 'components/common/ContactCard';
 import { Pagination } from 'components/common/Pagination';
-import { Input } from 'components/core/Input';
 import { Text } from 'components/core/Text';
 import { DynamicNoSSR } from 'components/layout/DynamicNoSSR';
 import { Main } from 'components/layout/Main';
@@ -11,15 +10,13 @@ import { ITEMS_PER_PAGE } from 'config/constant';
 import { useState } from 'react';
 import { collection } from 'services/Collection';
 
-const Home = () => {
+const Favorite = () => {
   const [page, setPage] = useState<number>(0);
-  const [keyword, setKeyword] = useState<string>('');
 
   const { data, loading, refetch } = useGetContactList({
-    search: keyword,
     limit: ITEMS_PER_PAGE,
     offset: page * ITEMS_PER_PAGE,
-    takeouts: collection.getAll()
+    findByIds: collection.getAll()
   });
 
   const items = data?.contact || [];
@@ -27,7 +24,7 @@ const Home = () => {
   return (
     <Main>
       <Text tag="h1" variant="headline-1" className="mb-8">
-        Contact List
+        Favorite Contacts
       </Text>
 
       <div className="flex max-md:flex-col-reverse">
@@ -40,7 +37,10 @@ const Home = () => {
                 <ContactCard
                   key={c.id}
                   id={c.id}
-                  onActionSuccess={refetch}
+                  onActionSuccess={() => {
+                    collection.getAll();
+                    refetch();
+                  }}
                   name={`${c.first_name} ${c.last_name}`}
                 />
               ))}
@@ -49,11 +49,8 @@ const Home = () => {
         </div>
 
         <div className="grow p-2 border rounded-sm max-md:mb-6">
-          <Input placeholder="Search contact" onChange={(e) => setKeyword(e.target.value)} />
-
           <Pagination
             isLoading={loading}
-            className="mt-8"
             currentPage={page}
             totalPages={Math.ceil(items.length / ITEMS_PER_PAGE)}
             onNextPage={() => setPage((prevPage) => prevPage + 1)}
@@ -65,4 +62,4 @@ const Home = () => {
   );
 };
 
-export default DynamicNoSSR(Home);
+export default DynamicNoSSR(Favorite);

@@ -11,7 +11,7 @@ const navigation = [
   {
     icon: <Users size={16} />,
     label: 'Contacts',
-    url: '/contact'
+    url: '/'
   },
   {
     icon: <UserPlus size={16} />,

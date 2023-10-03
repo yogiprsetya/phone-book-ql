@@ -20,11 +20,14 @@ export const collection = (() => {
 
   const add = (id: number) => {
     localCollection.push(id);
-
-    if (typeof window !== 'undefined') {
-      localStorage.setItem(WEB_STORAGE_NAME, JSON.stringify(localCollection));
-    }
+    localStorage.setItem(WEB_STORAGE_NAME, JSON.stringify(localCollection));
   };
 
-  return { add, getAll };
+  const remove = (id: number) => {
+    const indexToDelete = localCollection.indexOf(id);
+    localCollection.splice(indexToDelete, 1);
+    localStorage.setItem(WEB_STORAGE_NAME, JSON.stringify(localCollection));
+  };
+
+  return { add, getAll, remove };
 })();

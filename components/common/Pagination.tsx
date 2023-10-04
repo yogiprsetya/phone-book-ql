@@ -18,6 +18,7 @@ const PaginationStyled = styled('nav')((props) => [
 
 export const Pagination = (props: PaginationProps) => {
   const { currentPage, totalPages, onPrevPage, onNextPage, className, isLoading } = props;
+  console.log(totalPages);
 
   if (isLoading)
     return (
@@ -32,9 +33,9 @@ export const Pagination = (props: PaginationProps) => {
         Prev
       </Button>
 
-      <Text tag="span">{`Page ${currentPage + 1} of ${totalPages + 1}`}</Text>
+      <Text tag="span">{`Page ${currentPage + 1} of ${totalPages}`}</Text>
 
-      <Button variant="secondary" onClick={onNextPage} disabled={currentPage >= totalPages}>
+      <Button variant="secondary" onClick={onNextPage} disabled={currentPage + 1 >= totalPages}>
         Next
       </Button>
     </PaginationStyled>

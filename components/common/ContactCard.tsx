@@ -1,8 +1,10 @@
 'use client';
 
+import { useDeleteContactMutation } from 'api/Delete/DeleteContactPhone';
 import { Button } from 'components/core/Button';
+import { Modal } from 'components/core/Modal';
 import { Text } from 'components/core/Text';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Delete, Star } from 'react-feather';
 import { collection } from 'services/Collection';
 
@@ -13,6 +15,9 @@ type Props = {
 };
 
 export const ContactCard = (props: Props) => {
+  const [showPopupDelete, setShowPopupDelete] = useState(false);
+  const { mutation } = useDeleteContactMutation();
+
   const isCurrentlySaved = useMemo(() => collection.getAll().find((f) => f === props.id), [props.id]);
 
   const handleToCollection = useCallback(() => {
@@ -24,6 +29,15 @@ export const ContactCard = (props: Props) => {
 
     setTimeout(() => props.onActionSuccess(), 1000);
   }, [isCurrentlySaved, props]);
+
+  const handleDeleteContact = async () => {
+    const { success } = await mutation(props.id);
+
+    if (success) {
+      setShowPopupDelete(false);
+      props.onActionSuccess();
+    }
+  };
 
   return (
     <div className="flex items-center p-2 border gap-2 rounded-sm justify-between">
@@ -42,10 +56,30 @@ export const ContactCard = (props: Props) => {
           />
         </Button>
 
-        <Button variant="danger" title={`Delete ${props.name} from phone book`}>
+        <Button
+          variant="danger"
+          title={`Delete ${props.name} from phone book`}
+          onClick={() => setShowPopupDelete(true)}
+        >
           <Delete size={16} />
         </Button>
       </div>
+
+      <Modal title="Delete?" onClose={() => setShowPopupDelete(false)} show={showPopupDelete}>
+        <Text className="mb-6">
+          Are you sure delete <b>{props.name}</b> ?
+        </Text>
+
+        <div className="flex gap-2 justify-end">
+          <Button variant="secondary" onClick={() => setShowPopupDelete(false)}>
+            Cancel
+          </Button>
+
+          <Button variant="primary" onClick={handleDeleteContact}>
+            Yes
+          </Button>
+        </div>
+      </Modal>
     </div>
   );
 };

@@ -16,7 +16,7 @@ const ButtonStyled = styled('button')<IButton>(({ theme, variant, disabled }) =>
   };
 
   return [
-    tw`py-1 px-3 font-semibold`,
+    tw`py-1 px-3 font-bold`,
     {
       background: BG_COLOR[variant],
       color: variant === 'danger' ? theme.colors.secondary : theme.colors.text.body,

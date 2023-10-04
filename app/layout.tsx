@@ -7,7 +7,7 @@ import './globals.css';
 
 const nunito = Nunito_Sans({
   subsets: ['latin'],
-  weight: ['400', '600', '800']
+  weight: ['400', '700', '800']
 });
 
 export const metadata: Metadata = {

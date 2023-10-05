@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes, forwardRef } from 'react';
 import tw, { styled } from 'twin.macro';
 
 const InputStyled = styled('input')((props) => [
@@ -8,6 +8,8 @@ const InputStyled = styled('input')((props) => [
   }
 ]);
 
-export const Input = (props: InputHTMLAttributes<HTMLInputElement>) => {
-  return <InputStyled {...props} />;
-};
+export const Input = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>((props, ref) => {
+  return <InputStyled {...props} ref={ref} />;
+});
+
+Input.displayName = 'Input';

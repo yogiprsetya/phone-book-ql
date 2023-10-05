@@ -19,6 +19,7 @@
     "react": "latest",
     "react-dom": "latest",
     "react-feather": "^2.0.10",
+    "react-hook-form": "^7.47.0",
     "use-debounce": "^9.0.4"
   },
   "devDependencies": {

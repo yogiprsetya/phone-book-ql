@@ -39,6 +39,7 @@ export const ManageContact = (props: Props) => {
     }
   };
 
+  console.log(errors);
   return (
     <Main>
       <Text tag="h1" variant="headline-1" className="mb-8">
@@ -46,13 +47,23 @@ export const ManageContact = (props: Props) => {
       </Text>
 
       <div className="mb-4 flex flex-col">
-        {errors.first_name && <Text tag="span">first_name is required</Text>}
-        {errors.last_name && <Text tag="span">last_name is required</Text>}
-        {errors.phones && <Text tag="span">Make sure all phones field is not empty</Text>}
+        {errors.first_name && <Text tag="span">{errors.first_name.message}</Text>}
+        {errors.last_name && <Text tag="span">{errors.last_name.message}</Text>}
+        {errors.phones && <Text tag="span">Make sure all phones field is not empty and only number</Text>}
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="md:w-6/12 w-full flex flex-col gap-2">
-        <Input placeholder="Firstname" {...register('first_name', { required: true })} />
+        <Input
+          placeholder="Firstname"
+          {...register('first_name', {
+            required: true,
+            pattern: {
+              value: /^[a-zA-Z0-9]*$/,
+              message: 'Please avoid special Character'
+            }
+          })}
+        />
+
         <Input placeholder="Lastname" {...register('last_name', { required: true })} />
 
         <Fieldset label="Phones">
@@ -61,7 +72,13 @@ export const ManageContact = (props: Props) => {
               <div key={field.id} className="flex gap-1">
                 <Input
                   placeholder="Phone number"
-                  {...register(`phones.${index}.number`, { required: true })}
+                  {...register(`phones.${index}.number`, {
+                    required: true,
+                    pattern: {
+                      value: /^[0-9]*$/,
+                      message: ''
+                    }
+                  })}
                 />
 
                 <Button type="button" variant="danger" onClick={() => remove(index)}>

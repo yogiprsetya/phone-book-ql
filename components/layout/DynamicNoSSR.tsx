@@ -3,8 +3,8 @@
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 
-export const DynamicNoSSR = (App: NextPage) => {
+export const DynamicNoSSR = <T,>(App: NextPage<T>) => {
   return dynamic(() => Promise.resolve(App), {
-    ssr: false
+    ssr: true
   });
 };

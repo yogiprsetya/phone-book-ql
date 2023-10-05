@@ -17,7 +17,7 @@ type ContactParams = {
   findByIds?: number[];
 };
 
-const GET_CONATCT_LIST = gql`
+const GET_CONTACT_LIST = gql`
   query GetContactList(
     $distinct_on: [contact_select_column!]
     $limit: Int
@@ -26,13 +26,13 @@ const GET_CONATCT_LIST = gql`
     $where: contact_bool_exp
   ) {
     contact(distinct_on: $distinct_on, limit: $limit, offset: $offset, order_by: $order_by, where: $where) {
-      created_at
-      first_name
       id
+      first_name
       last_name
       phones {
         number
       }
+      created_at
     }
   }
 `;
@@ -41,7 +41,7 @@ export const useGetContactList = (params?: ContactParams) => {
   const { limit = ITEMS_PER_PAGE, offset = 0, search = '', takeouts, findByIds } = params || {};
   const [value] = useDebounce(search, 1000);
 
-  return useQuery<{ contact: ContactType[] }>(GET_CONATCT_LIST, {
+  return useQuery<{ contact: ContactType[] }>(GET_CONTACT_LIST, {
     variables: {
       limit,
       offset,

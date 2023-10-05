@@ -4,8 +4,9 @@ import { useDeleteContactMutation } from 'api/Delete/DeleteContactPhone';
 import { Button } from 'components/core/Button';
 import { Modal } from 'components/core/Modal';
 import { Text } from 'components/core/Text';
+import { useRouter } from 'next/navigation';
 import { useCallback, useMemo, useState } from 'react';
-import { Delete, Star } from 'react-feather';
+import { Delete, Edit, Star } from 'react-feather';
 import { collection } from 'services/Collection';
 
 type Props = {
@@ -17,6 +18,7 @@ type Props = {
 export const ContactCard = (props: Props) => {
   const [showPopupDelete, setShowPopupDelete] = useState(false);
   const { mutation } = useDeleteContactMutation();
+  const router = useRouter();
 
   const isCurrentlySaved = useMemo(() => collection.getAll().find((f) => f === props.id), [props.id]);
 
@@ -54,6 +56,14 @@ export const ContactCard = (props: Props) => {
             fill={isCurrentlySaved ? 'red' : 'none'}
             stroke={isCurrentlySaved ? 'red' : 'black'}
           />
+        </Button>
+
+        <Button
+          variant="secondary"
+          title={`Edit ${props.name}`}
+          onClick={() => router.push(`/contact/edit?id=${props.id}`)}
+        >
+          <Edit size={16} />
         </Button>
 
         <Button

@@ -11,6 +11,7 @@ import { useForm, SubmitHandler, useFieldArray } from 'react-hook-form';
 
 type Props = {
   title: string;
+  contactId?: string;
 };
 
 export const ManageContact = (props: Props) => {

@@ -12,15 +12,30 @@ import { useState } from 'react';
 import { collection } from 'services/Collection';
 
 const Home = () => {
-  const [page, setPage] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
   const [keyword, setKeyword] = useState<string>('');
 
-  const { data, loading, refetch } = useGetContactList({
+  const { data, loading, refetch, fetchMore } = useGetContactList({
     search: keyword,
     limit: ITEMS_PER_PAGE,
-    offset: page * ITEMS_PER_PAGE,
+    offset: 0,
     takeouts: collection.getAll()
   });
+
+  const handleLoadMore = (newPage: number) => {
+    fetchMore({
+      variables: { offset: newPage },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return prev;
+
+        return {
+          contact: fetchMoreResult.contact
+        };
+      }
+    });
+
+    setPage(newPage);
+  };
 
   const items = data?.contact || [];
 
@@ -55,9 +70,9 @@ const Home = () => {
             isLoading={loading}
             className="mt-8"
             currentPage={page}
-            totalPages={Math.ceil(items.length / ITEMS_PER_PAGE)}
-            onNextPage={() => setPage((prevPage) => prevPage + 1)}
-            onPrevPage={() => setPage((prevPage) => prevPage - 1)}
+            totalItems={items.length}
+            onPrevPage={() => handleLoadMore(page - 1)}
+            onNextPage={() => handleLoadMore(page + 1)}
           />
         </div>
       </div>

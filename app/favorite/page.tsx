@@ -53,7 +53,7 @@ const Favorite = () => {
           <Pagination
             isLoading={loading}
             currentPage={page}
-            totalPages={Math.ceil(items.length / ITEMS_PER_PAGE)}
+            totalItems={items.length}
             onNextPage={() => setPage((prevPage) => prevPage + 1)}
             onPrevPage={() => setPage((prevPage) => prevPage - 1)}
           />

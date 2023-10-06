@@ -24,3 +24,4 @@ Note: run `npx husky install` first time only
 3. We can use twin.macro to handle styled component breakpoints easily.
 4. App route patterns can create a SPA experience.
 5. With Apollo client, we can create a backend in our frontend codebase.
+6. Use `MockedProvider` from `'@apollo/client/testing'` to mocking data query and response, zero additional setup

@@ -3,7 +3,8 @@
 const withTwin = require('./withTwin.js');
 
 const nextConfig = withTwin({
-  output: 'export'
+  output: 'export',
+  reactStrictMode: true
 });
 
 module.exports = nextConfig;

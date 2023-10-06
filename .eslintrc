@@ -1,10 +1,17 @@
 {
   "extends": ["next", "prettier"],
-  "plugins": ["@emotion"],
+  "plugins": ["@emotion", "testing-library"],
   "rules": {
     "@emotion/jsx-import": "error",
     "@emotion/no-vanilla": "error",
     "@emotion/import-from-emotion": "error",
     "@emotion/styled-import": "error"
-  }
+  },
+  "overrides": [
+    // Only uses Testing Library lint rules in test files
+    {
+      "files": ["**/__tests__/**/*.ts?(x)", "**/*.spec.ts?(x)"],
+      "extends": ["plugin:testing-library/react"]
+    }
+  ]
 }

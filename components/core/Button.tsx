@@ -2,7 +2,6 @@
 
 import tw, { styled } from 'twin.macro';
 import { ButtonHTMLAttributes, ReactNode } from 'react';
-import Link from 'next/link';
 
 interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;

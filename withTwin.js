@@ -1,7 +1,16 @@
+'use client';
+
 const path = require('path');
 
 // The folders containing files importing twin.macro
-const includedDirs = [path.resolve(__dirname, 'components')];
+const includedDirs = [
+  path.resolve(__dirname, 'api'),
+  path.resolve(__dirname, 'app'),
+  path.resolve(__dirname, 'components'),
+  path.resolve(__dirname, 'config'),
+  path.resolve(__dirname, 'hooks'),
+  path.resolve(__dirname, 'services')
+];
 
 module.exports = function withTwin(nextConfig) {
   return {
@@ -25,6 +34,7 @@ module.exports = function withTwin(nextConfig) {
             options: {
               sourceMaps: dev,
               plugins: [
+                require.resolve('babel-plugin-jsx-remove-data-test-id'),
                 require.resolve('babel-plugin-macros'),
                 require.resolve('@emotion/babel-plugin'),
                 [require.resolve('@babel/plugin-syntax-typescript'), { isTSX: true }]

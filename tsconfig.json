@@ -4,7 +4,14 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "types": ["@emotion/react/types/css-prop"],
+    "types": [
+      "@emotion/react/types/css-prop",
+      "jest",
+      "@testing-library/jest-dom",
+      "node",
+      "./twin.d.ts",
+      "./emotion.d.ts"
+    ],
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,

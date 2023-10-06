@@ -43,7 +43,7 @@ export const ContactCard = (props: Props) => {
   };
 
   return (
-    <div className="flex items-center p-2 border gap-2 rounded-sm justify-between">
+    <div className="flex items-center p-2 border gap-2 rounded-sm justify-between" data-testid="contact-card">
       <div>
         <Text className="capitalize">{props.name}</Text>
         <Text>{props.number}</Text>

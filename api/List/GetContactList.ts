@@ -15,7 +15,7 @@ type ContactParams = {
   findByIds?: number[];
 };
 
-const GET_CONTACT_LIST = gql`
+export const GET_CONTACT_LIST = gql`
   query GetContactList(
     $distinct_on: [contact_select_column!]
     $limit: Int
@@ -36,7 +36,7 @@ const GET_CONTACT_LIST = gql`
 `;
 
 export const useGetContactList = (params?: ContactParams) => {
-  const { limit = ITEMS_PER_PAGE, offset = 0, search = '', takeouts, findByIds } = params || {};
+  const { limit = ITEMS_PER_PAGE, offset = 0, search = '', takeouts = [], findByIds = [] } = params || {};
   const [value] = useDebounce(search, 1000);
 
   return useQuery<{ contact: IContactType[] }>(GET_CONTACT_LIST, {
@@ -46,8 +46,8 @@ export const useGetContactList = (params?: ContactParams) => {
       where: {
         first_name: { _like: `%${value}%` },
         id: {
-          _nin: takeouts,
-          _in: findByIds
+          ...(takeouts.length && { _nin: takeouts }),
+          ...(findByIds.length && { _in: findByIds })
         }
       }
     }

@@ -1,3 +1,5 @@
+'use client';
+
 import { useOutsideEvent } from 'hooks/useOutsideEvent';
 import { ReactNode } from 'react';
 import { createPortal } from 'react-dom';

@@ -75,7 +75,7 @@ export const Sidebar = () => {
         <p>PhoneBookQL</p>
       </LogoStyled>
 
-      <ButtonMenu onClick={() => setMobileToggle(!mobileToggle)}>
+      <ButtonMenu aria-label="toggle menu" onClick={() => setMobileToggle(!mobileToggle)}>
         <Menu />
       </ButtonMenu>
 

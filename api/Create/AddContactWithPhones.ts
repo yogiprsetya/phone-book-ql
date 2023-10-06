@@ -1,15 +1,6 @@
 import { gql, useMutation } from '@apollo/client';
 import { useCallback } from 'react';
-
-type PhonesType = {
-  number: string;
-};
-
-export type ContactType = {
-  first_name: string;
-  last_name: string;
-  phones: PhonesType[];
-};
+import { AddContactType } from 'types/public';
 
 const ADD_CONTACT_WITH_PHONES = gql`
   mutation AddContactWithPhones($first_name: String!, $last_name: String!, $phones: [phone_insert_input!]!) {
@@ -27,10 +18,10 @@ const ADD_CONTACT_WITH_PHONES = gql`
 `;
 
 export const useAddContactWithPhones = () => {
-  const [mutation, { loading, error }] = useMutation<ContactType>(ADD_CONTACT_WITH_PHONES);
+  const [mutation, { loading, error }] = useMutation<AddContactType>(ADD_CONTACT_WITH_PHONES);
 
   const handleMutate = useCallback(
-    async (form: ContactType) => {
+    async (form: AddContactType) => {
       const mutate = await mutation({
         variables: form
       });

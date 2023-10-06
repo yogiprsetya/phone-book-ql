@@ -1,48 +1,73 @@
 'use client';
 
-import { ContactType, useAddContactWithPhones } from 'api/Create/AddContactWithPhones';
+// import { AddContactType } from 'api/Create/AddContactWithPhones';
+// import { EditContactType } from 'api/Edit/EditContact';
+// import { EditPhoneNumberType } from 'api/Edit/EditPhoneNumber';
 import { Fieldset } from 'components/common/Fieldset';
 import { Button } from 'components/core/Button';
 import { Input } from 'components/core/Input';
 import { Text } from 'components/core/Text';
-import { Main } from 'components/layout/Main';
 import { Delete } from 'react-feather';
 import { useForm, SubmitHandler, useFieldArray } from 'react-hook-form';
+import { AddContactType, EditContactType, IMutateContact } from 'types/public';
 
 type Props = {
   title: string;
-  contactId?: string;
+  contactData?: EditContactType;
+  onAddMutate?: (x: AddContactType) => Promise<{ data: any; success?: boolean }>;
+  onEditMutate?: (x: IMutateContact) => Promise<{ success?: boolean }>;
 };
 
 export const ManageContact = (props: Props) => {
-  const { mutation } = useAddContactWithPhones();
+  const { contactData, onAddMutate, onEditMutate } = props;
 
   const {
     register,
     handleSubmit,
     control,
     reset,
-    formState: { errors }
-  } = useForm<ContactType>({
+    formState: { errors, dirtyFields, isDirty }
+  } = useForm<AddContactType>({
     defaultValues: {
-      phones: [{ number: '' }]
+      ...(contactData ? contactData : { phones: [{ number: '' }] })
     }
   });
 
   const { fields, append, remove } = useFieldArray({ control, name: 'phones' });
 
-  const onSubmit: SubmitHandler<ContactType> = async (data) => {
-    const { success } = await mutation(data);
+  const onSubmit: SubmitHandler<AddContactType> = async (data) => {
+    let isSuccessful = false;
 
-    if (success) {
+    if (!!onAddMutate) {
+      const { success } = await onAddMutate(data);
+      isSuccessful = Boolean(success);
+    }
+
+    if (!!onEditMutate && !!contactData) {
+      const payload = {
+        id: contactData.id,
+        first_name: data.first_name,
+        last_name: data.last_name,
+        phones: data.phones.map((phone, index) => ({
+          current: contactData.phones[index]?.number,
+          new: phone.number
+        })),
+        isPhoneChanges: !!dirtyFields.phones,
+        isAnyChanges: !!isDirty
+      };
+
+      const { success } = await onEditMutate(payload);
+      isSuccessful = Boolean(success);
+    }
+
+    if (isSuccessful) {
       alert('Contact created successfully');
       reset();
     }
   };
 
-  console.log(errors);
   return (
-    <Main>
+    <>
       <Text tag="h1" variant="headline-1" className="mb-8">
         {props.title}
       </Text>
@@ -59,13 +84,22 @@ export const ManageContact = (props: Props) => {
           {...register('first_name', {
             required: true,
             pattern: {
-              value: /^[a-zA-Z0-9]*$/,
+              value: /^[a-zA-Z0-9 ]*$/,
               message: 'Please avoid special Character'
             }
           })}
         />
 
-        <Input placeholder="Lastname" {...register('last_name', { required: true })} />
+        <Input
+          placeholder="Lastname"
+          {...register('last_name', {
+            required: true,
+            pattern: {
+              value: /^[a-zA-Z0-9 ]*$/,
+              message: 'Please avoid special Character'
+            }
+          })}
+        />
 
         <Fieldset label="Phones">
           <div className="flex flex-col gap-2">
@@ -98,6 +132,6 @@ export const ManageContact = (props: Props) => {
           Save Contact
         </Button>
       </form>
-    </Main>
+    </>
   );
 };

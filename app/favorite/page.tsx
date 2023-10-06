@@ -42,7 +42,7 @@ const Favorite = () => {
                     refetch();
                   }}
                   name={`${c.first_name} ${c.last_name}`}
-                  number={c.phones[0].number}
+                  number={c.phones[0] && c.phones[0].number}
                 />
               ))}
             </div>

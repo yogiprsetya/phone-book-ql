@@ -12,7 +12,7 @@ import { collection } from 'services/Collection';
 type Props = {
   id: number;
   name: string;
-  number: string;
+  number?: string;
   onActionSuccess: () => void;
 };
 

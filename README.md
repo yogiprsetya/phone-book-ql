@@ -8,10 +8,19 @@ First, run the development server:
 npm run dev
 ```
 
+Run on production
+
+```bash
+npm run build
+npm start
+```
+
 Note: run `npx husky install` first time only
 
 ## Exploration take away
 
-1. NextJS currently still working on support for Emotion
-2. Join CSSinJS manually with tailwind is bad idea, use `twin.macro` instead
-3. We can use `twin.macro` to handle styled component breakpoint asap
+1. NextJS is currently working on support for Emotion.
+2. Joining CSSinJS manually with tailwind is a bad idea. Use twin.macro instead.
+3. We can use twin.macro to handle styled component breakpoints easily.
+4. App route patterns can create a SPA experience.
+5. With Apollo client, we can create a backend in our frontend codebase.

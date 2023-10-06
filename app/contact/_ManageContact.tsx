@@ -117,7 +117,12 @@ export const ManageContact = (props: Props) => {
                   })}
                 />
 
-                <Button type="button" variant="danger" onClick={() => remove(index)}>
+                <Button
+                  type="button"
+                  variant="danger"
+                  onClick={() => remove(index)}
+                  aria-label="Delete phone input"
+                >
                   <Delete size={20} />
                 </Button>
               </div>

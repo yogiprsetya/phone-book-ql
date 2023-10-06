@@ -26,6 +26,7 @@ export const ManageContact = (props: Props) => {
     handleSubmit,
     control,
     reset,
+    setValue,
     formState: { errors, dirtyFields, isDirty }
   } = useForm<AddContactType>({
     defaultValues: {
@@ -36,11 +37,13 @@ export const ManageContact = (props: Props) => {
   const { fields, append, remove } = useFieldArray({ control, name: 'phones' });
 
   const onSubmit: SubmitHandler<AddContactType> = async (data) => {
-    let isSuccessful = false;
-
     if (!!onAddMutate) {
       const { success } = await onAddMutate(data);
-      isSuccessful = Boolean(success);
+
+      if (success) {
+        alert('Contact created successfully');
+        reset();
+      }
     }
 
     if (!!onEditMutate && !!contactData) {
@@ -57,12 +60,10 @@ export const ManageContact = (props: Props) => {
       };
 
       const { success } = await onEditMutate(payload);
-      isSuccessful = Boolean(success);
-    }
 
-    if (isSuccessful) {
-      alert('Contact created successfully');
-      reset();
+      if (success) {
+        alert('Contact update successfully');
+      }
     }
   };
 

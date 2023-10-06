@@ -1,6 +1,7 @@
 {
   "extends": ["next", "prettier"],
   "plugins": ["@emotion", "testing-library"],
+  "ignorePatterns": ["__tests__/**/*", "cypress/**/*", "__mocks__**/*", "node_modules/**/*"],
   "rules": {
     "@emotion/jsx-import": "error",
     "@emotion/no-vanilla": "error",
@@ -10,7 +11,7 @@
   "overrides": [
     // Only uses Testing Library lint rules in test files
     {
-      "files": ["**/__tests__/**/*.ts?(x)", "**/*.spec.ts?(x)"],
+      "files": ["**/__tests__/**/*.ts?(x)", "**/*.spec.ts?(x)", "**/*.cy.ts?(x)"],
       "extends": ["plugin:testing-library/react"]
     }
   ]

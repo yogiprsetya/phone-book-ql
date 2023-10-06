@@ -12,6 +12,7 @@ import { collection } from 'services/Collection';
 type Props = {
   id: number;
   name: string;
+  number: string;
   onActionSuccess: () => void;
 };
 
@@ -43,7 +44,10 @@ export const ContactCard = (props: Props) => {
 
   return (
     <div className="flex items-center p-2 border gap-2 rounded-sm justify-between">
-      <Text className="capitalize">{props.name}</Text>
+      <div>
+        <Text className="capitalize">{props.name}</Text>
+        <Text>{props.number}</Text>
+      </div>
 
       <div className="flex items-center gap-1">
         <Button

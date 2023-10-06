@@ -57,6 +57,7 @@ const Home = () => {
                   id={c.id}
                   onActionSuccess={refetch}
                   name={`${c.first_name} ${c.last_name}`}
+                  number={c.phones[0].number}
                 />
               ))}
             </div>

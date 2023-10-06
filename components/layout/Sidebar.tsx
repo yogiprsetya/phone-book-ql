@@ -26,7 +26,7 @@ const navigation = [
 ];
 
 const AsideStyled = styled('aside')([
-  tw`w-full relative md:w-[240px] md:h-screen md:p-8 px-4 py-5 max-md:fixed flex md:flex-col max-md:justify-between`,
+  tw`w-full relative md:w-[240px] md:h-screen md:p-8 px-4 py-5 max-md:fixed flex md:flex-col max-md:justify-between z-10`,
   {
     gap: 8,
     background: '#10172a'

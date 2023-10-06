@@ -3,7 +3,6 @@
 import { useGetContactList } from 'api/List/GetContactList';
 import { ContactCard } from 'components/common/ContactCard';
 import { Pagination } from 'components/common/Pagination';
-import { Modal } from 'components/core/Modal';
 import { Text } from 'components/core/Text';
 import { DynamicNoSSR } from 'components/layout/DynamicNoSSR';
 import { Main } from 'components/layout/Main';
@@ -43,6 +42,7 @@ const Favorite = () => {
                     refetch();
                   }}
                   name={`${c.first_name} ${c.last_name}`}
+                  number={c.phones[0].number}
                 />
               ))}
             </div>
